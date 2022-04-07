@@ -46,6 +46,6 @@ def delete_customer_by_id(id:int, db:Session):
 def checkEmailExist(email:EmailStr, db:Session):
     existing_customer = db.query(Customer).filter(Customer.email == email)
     if(not existing_customer.first()):
-        return False
+        return -1
     else:
-        return True
+        return existing_customer.first().id

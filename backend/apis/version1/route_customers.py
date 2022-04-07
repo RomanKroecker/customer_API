@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.post("/create-customer",response_model=ShowCustomer)
 def create_customer(customer:CustomerCreate, db:Session=Depends(get_db)):
-    if checkEmailExist(email=customer.email, db=db):
+    if checkEmailExist(email=customer.email, db=db) != -1:
         raise HTTPException(status_code=400, detail="Email already exists")
     customer = create_new_customer(customer=customer, db=db)
     return customer
@@ -40,6 +40,10 @@ def retreive_all_customers(db:Session = Depends(get_db)):
 
 @router.put("/update/{id}")
 def update_customer(id:int, customer:CustomerCreate, db:Session=Depends(get_db)):
+    ex_id = checkEmailExist(email=customer.email, db=db)
+    
+    if ex_id > -1 and id != ex_id:
+        raise HTTPException(status_code=400, detail="Email already exists")
     message = update_customer_by_id(id=id, customer=customer, db=db)
     if not message:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
