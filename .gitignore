@@ -1,0 +1,6 @@
+__pycache__
+.env
+env
+.spyproject
+
+sql_app.db
