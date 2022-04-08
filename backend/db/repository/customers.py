@@ -13,9 +13,23 @@ def create_new_customer(customer:CustomerCreate, db:Session):
     db.refresh(customer)
     return customer
 
-def retreive_customer(id:int, db:Session):
-    customer = db.query(Customer).filter(Customer.id==id).first()
+
+
+def retreive_customer(var, db:Session):
+    
+    if(type(var)==int):
+        customer = db.query(Customer).filter(Customer.id==var).first()
+        
+    elif(EmailStr.validate(var)):
+        customer = db.query(Customer).filter(Customer.email==var).first()
+            
+    else:
+        return 0
+    
     return customer
+
+
+
 
 
 def list_customers(db: Session):
