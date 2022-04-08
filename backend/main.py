@@ -30,4 +30,4 @@ app = start_application()
 
 @app.get("/")
 def hello_api():
-    return{"detail":"Hi World"}
+    return{"detail":"Customer API"}
