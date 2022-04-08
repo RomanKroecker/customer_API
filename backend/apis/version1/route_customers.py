@@ -47,11 +47,6 @@ def retreive_customer_by_email(email:EmailStr, db:Session = Depends(get_db)):
 
 
 
-# @router.get("/all")
-# def retreive_all_customers(db:Session = Depends(get_db)):
-#     customers = list_customers(db=db)
-#     return customers 
-
 
 @router.get("/all")
 def retreive_all_customers(db:Session = Depends(get_db), itemsPerPage:int=None, page:Optional[int]=0, order_by:Optional[str]=None, 
